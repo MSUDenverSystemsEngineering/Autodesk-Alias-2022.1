@@ -125,25 +125,14 @@ Try {
 
 		## <Perform Pre-Installation tasks here>
 
-		## Uninstall Alias 2023 if found - this is due to a request to rollback to 2022 in August 2022. It can be safely deleted in the future. Moves items to a local folder and runs to avoid peercaching issues wiht Dlogfile filename causing hash mismatches
-		If (Test-Path -Path "C:\Program Files\Autodesk\AliasAutoStudio2023.0\bin\Alias.exe" -PathType Leaf)
-		{
-			New-Item "C:\AutodeskUninstall\" -itemType Directory
-			Copy-File -Path "$dirFiles\*.*" -Destination "C:\AutodeskUninstall\"
-			Write-Log -Message "Uninstalling 2023..."
-			Execute-Process -Path "C:\AutodeskUninstall\Remove2023.bat"
-			Remove-Folder -Path "C:\AutodeskUninstall\"
-
-		}
-
  ##*===============================================
         ##* INSTALLATION
         ##*===============================================
         [string]$installPhase = 'Installation'
 
 		## Moves items to a local folder and runs to avoid peercaching issues wiht Dlogfile filename causing hash mismatches
-		New-Item "C:\AutodeskInstall\" -itemType Directory
-		Copy-File -Path "$dirFiles\*.*" -Destination "C:\AutodeskInstall\" -Recurse
+		New-Item "C:\AutodeskInstall\" -ItemType Directory
+		Copy-File -Path "$dirFiles\*.*" -Destination "C:\AutodeskInstall\"
 		Write-Log -Message "Installing 2024..."
 		Execute-Process -Path "C:\AutodeskInstall\Install AutoCAD 2024 + Alias 2023.bat"
 		Remove-Folder -Path "C:\AutodeskInstall\"
@@ -229,11 +218,13 @@ Catch {
 	Show-DialogBox -Text $mainErrorMessage -Icon 'Stop'
 	Exit-Script -ExitCode $mainExitCode
 }
+
+
 # SIG # Begin signature block
 # MIImVAYJKoZIhvcNAQcCoIImRTCCJkECAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCClQpo/7nQZ1F0e
-# gdDXnU6qZ66Djz5bT8cb8FE81AN9/6CCH8AwggVvMIIEV6ADAgECAhBI/JO0YFWU
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCC2+mB0F4JicIyn
+# YY/T11ZM/Kw9pG73n0P7uggaJMiaLKCCH8AwggVvMIIEV6ADAgECAhBI/JO0YFWU
 # jTanyYqJ1pQWMA0GCSqGSIb3DQEBDAUAMHsxCzAJBgNVBAYTAkdCMRswGQYDVQQI
 # DBJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcMB1NhbGZvcmQxGjAYBgNVBAoM
 # EUNvbW9kbyBDQSBMaW1pdGVkMSEwHwYDVQQDDBhBQUEgQ2VydGlmaWNhdGUgU2Vy
@@ -407,32 +398,32 @@ Catch {
 # MSswKQYDVQQDEyJTZWN0aWdvIFB1YmxpYyBDb2RlIFNpZ25pbmcgQ0EgUjM2AhEA
 # pU3fcPvc8UxUgrjysXLKMTANBglghkgBZQMEAgEFAKCBhDAYBgorBgEEAYI3AgEM
 # MQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQB
-# gjcCAQsxDjAMBgorBgEEAYI3AgEVMC8GCSqGSIb3DQEJBDEiBCApOu18KkTcB2IO
-# yF+wJSIYVz9eFt8V6x4BkYY8nluFAzANBgkqhkiG9w0BAQEFAASCAYCA+6dNdJ3s
-# PZvDEeJ1rKAaOvo/6iJwXywx+ACm1Ex+X6GvTvDe3GpyUtEif14qIBRz2dHQFUFs
-# NJJV+BV8c5EKNj8cK0WSpOHwH073JfM8/Drn56wHAKE7iOhDfDcdZgRkER0Tw/34
-# 4S0M48zzSNB/JPwlvCwVLtdrPcPSmU5wFHTTmDZ4wQdc45+AvGHWWO5lJNTuoQJD
-# YJxLMjNT1iZ63FujIKYdoV30ENEhoBK1W0cFW+xImFPvPCGDn8G/STD1nQFdmDl0
-# hIOW8+eS8gPWGR5Qs9qdosxB+CbfpjoPs6dSg9ooYb40M+hsCSFU5GNF7TKtTglh
-# Ikax/MVCJvQAGkcRV07S3uRp1PQ68jXCrRNgzV+aKu+g64jz5BNPYraY1vYWfnuS
-# EijAIqAF8AbhpgOlKR1i9zYgcEhQa6rUjH72DQHxm5F/0hK0BOi4A3+Pjsem3hjE
-# l2/7TYp95DaKbhaVAysr9ajii11UYChrz6+LmjAfx5DyllJROcrkqx6hggNLMIID
+# gjcCAQsxDjAMBgorBgEEAYI3AgEVMC8GCSqGSIb3DQEJBDEiBCCBTS1S2tyTfsUa
+# qfaxzOolIlj9aePvlWKKnsMsYEjJ2zANBgkqhkiG9w0BAQEFAASCAYAH1g1OcihX
+# 4UznrmHOkGN0JeX6/ctN0wCuY6eoTjQem2lz5H9bRQ4WSXLPOx83r1yLvS/KmMZI
+# qV+8TQryQdImtueyXOsjcW9wv2yns2cf9eTIdZorZF7S8GU/DLQhR/O9aSFHCvFy
+# a+eRlcbab87sQvDPS1uqEELcu7xmmxcrWsWl0yoMVw5yo9gFvo2NcRmaryeP0jJ2
+# j5DHiHIwdqCkOanS6/SgBUjtd9H4lBpXY/V2uyOHKBOC6lN1jr1FefimNjBKwwbL
+# yhfmwRW1Z8oLci5pZqeCY3uBJeyjbuJL3aOWexFQfe0yw0/dMyGnfmBbkckUi2XX
+# pIkmcWEflzXY6rsRGXIZP63W7gDXJeFy23FCqBEqwqj2qlJBrAkw5FW4T7sSqSk3
+# qIMMfBp0L1ynWTucEqdek87kC2rFjvG/hgRmfM7X/KHPBCwET5wxPFgNaH93lh5W
+# +sleS4ehP5m7BaAXXNokDpWhFM7WRqdBnX6c/1ttHu4v3ItGFmAcyS+hggNLMIID
 # RwYJKoZIhvcNAQkGMYIDODCCAzQCAQEwgZEwfTELMAkGA1UEBhMCR0IxGzAZBgNV
 # BAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYGA1UE
 # ChMPU2VjdGlnbyBMaW1pdGVkMSUwIwYDVQQDExxTZWN0aWdvIFJTQSBUaW1lIFN0
 # YW1waW5nIENBAhA5TCXhfKBtJ6hl4jvZHSLUMA0GCWCGSAFlAwQCAgUAoHkwGAYJ
-# KoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNjIyMTQz
-# NDQzWjA/BgkqhkiG9w0BCQQxMgQwAQOOA2DA5hEy+0nRg9HlT0yIGbNyzg0TEQGT
-# eLtDMqyx2o1w8MVRrVgHF6QT/UkCMA0GCSqGSIb3DQEBAQUABIICAA/OB0atj6tR
-# bQpdV0sZpEbVPfA1E87RH88s3ieuY/x9FvO+Nh4/aiDx3XFMfF/jB3/tAx+H9AY6
-# C1TNcWSHvnSkJ9b6u32krolylvEmK8uIlt3WqDA7VmirGJ00La59lmMZE2sYnH+L
-# jGlUX99MU82AN1FPZ0ccfvSY2VAjWEthGpLp4IWYd6ZXYvGwsENgGGjsXgNKj5Nn
-# IY6eHDuNGUcykM3Cc96YJSvXcAuvFMMVrFqU47jY4s3qgEy8jO59zlXsxcpw2JPE
-# LvNLtYGvWIzed9bAqV8Aesx8JvIIiEvvsiKyscycxIjiGn9OVyMhDrGRh/Qa3pSQ
-# 0XF5vLhUWceQHsSSoY+1rDuQ7ZS1BNqDrzCE+gIRKKYe1zsKMzrc8IR2E9qpwMHE
-# S9kVoqnhexX37C9ULTw4xK0VX1T5i4Vdj40WAJScq2NW8UXY7dr29wVFvCXm8bFm
-# dQavIogMAOFG48SnQTU+9LOpns2si8D0qIgh7tvYod4/YlK0bFI+6Fe28rM6xJtL
-# etf4w0qgxZ2+2E/x+cLOMq//cKrszpORjRzkyqQPtzFUNCJKx/XavL4bCu/lJaQx
-# xNSucTHVKORFL74/SdN7BwlKZipNScrppTZmEI6f2vOUZT8MpEAgP9/ErcoSCUlT
-# FgGx6R4bQA/fyjPRdCg03kGS9sbI1pgg
+# KoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNzA1MjE0
+# NTQzWjA/BgkqhkiG9w0BCQQxMgQwAx4DAYceSaOvcmGd8h6aMNtlrq5sk5sf8pP6
+# SxULZfKafF7DFc40X8Pu5Zdzua65MA0GCSqGSIb3DQEBAQUABIICAE2H8SSAyCm7
+# ourtQx/oRMRd1Spy4kn9J18fYd1Sr1GYHD1rg8hTM2qmzpdORw2sxMwLE+To/Id5
+# x+6doDY7TcSXzTdVMXLi5e67FKW4nbNbvh5dh0NQVOrtsBDCF+oK474GSfeBIKl/
+# jntAC38/1rIJrbOgj/EDr7F0VDg9KDDBxnhvKiH9OsD4/EXmCljsqIWpTW4LxaFi
+# StG1VkmapDjYkdMxt1ml9QGvLw0R3zh/O6DLgdX7plIDWn31JHzsOfec97Ed2RDp
+# TGTz8YOfssAhnZ459MeOD2ON7sEIIqWDCNmwVGX8RYrmjUQ0eDN/ulpGJiI8zLwT
+# sI7bpwGSzQLEgAl/sh3jy3t1fgb4lwAV1Ngq6guSMboRCj02Hn8vpuEUIkNZKxDM
+# GXGlBknuAuc0hovX4Rxn41e10/rj/o44RrA4VInKr1Xj650pgnr2ZlqgYLyAHmfR
+# 0yyilIAWVSXVFxYSOlMeMvAoN0fuQpizFxERz3aSNZr4YHwGz25ofMo8su8bWq/u
+# z/KGqQAWLTh2DpNaN19LM8K+5TS9YEazwwzyxzmpzvuV/GpLQr4Bx9iTt07PP9FD
+# gFIarlxkVy1iDKN+4jsknkzFIqk1+nMMT8alg74KuyNadAzpgiE2MTpt4EvStGdD
+# 3TUtREFRARTplUFuWa5LsioYZbfWC9AO
 # SIG # End signature block
