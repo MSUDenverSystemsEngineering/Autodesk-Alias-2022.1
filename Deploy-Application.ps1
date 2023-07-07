@@ -124,8 +124,17 @@ Try {
 		Show-InstallationProgress
 
 		## <Perform Pre-Installation tasks here>
+        ## Uninstall previous version of Alias and AutoCAD
+        If (Test-Path -Path "C:\Program Files\Autodesk\AliasAutoStudio2022.2.1\bin\Alias.exe" -PathType Leaf)
+		{
+			New-Item "C:\AutodeskUninstall\" -itemType Directory
+			Copy-File -Path "$dirFiles\*.*" -Destination "C:\AutodeskUninstall\"
+			Write-Log -Message "Uninstalling 2022..."
+			Execute-Process -Path "C:\AutodeskUninstall\Remove2022.bat"
+			Remove-Folder -Path "C:\AutodeskUninstall\"
+        }
 
- ##*===============================================
+	 ##*===============================================
         ##* INSTALLATION
         ##*===============================================
         [string]$installPhase = 'Installation'
